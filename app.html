@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Weather App-Easy Tutorials</title>
+<link rel="stylesheet"href="style.css">
+</head>
+<body>
+<div class="card">
+   <div class="search">
+      <input type="text" placeholder="enter city name" spellcheck="false">
+	  <button><img src="https://tse4.mm.bing.net/th?id=OIP.16btkDvaBBJc4Ei7DdKWVAHaIW&pid=Api&P=0&h=180"</button>
+</div>
+
+<div class="weather">
+<img src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180" alt="" class="weather-icon">
+<h1 class="temp">22°c</h1>
+<h2 class="city">newyork</h2>
+<div class="details">
+<div class="col">
+<img src="https://tse4.mm.bing.net/th?id=OIP.fg2iLPAM8qzqYhRDEOcbNQHaHa&pid=Api&P=0&h=180" alt="">
+<div>
+<p class="humidity">50%</p>
+<p>Humidity</p>
+</div>
+</div>
+<div class="col">
+<img src="https://tse4.mm.bing.net/th?id=OIP.Q3YlGc74_WBHp1qTmtd1NwHaF_&pid=Api&P=0&h=180"alt="">
+<div>
+<p class="Windy">50km/h</p>
+<p>Wind Speed</p>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+const apiKey="c2137b74be84e085a259721aaea8d737";
+const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+const searchBox=document.querySelector(".search input");
+const searchBtn=document.querySelector(".search button");
+const weatherIcon=document.querySelector(".weather-icon");
+async function checkWeather(city){
+const response=await fetch(apiUrl+ city +`&appid=${apiKey}`);
+if(response.status==404){
+document.getSelector(".error").style.display="block";
+document.getSelector(".weather").style.display="none";
+}
+else{
+
+var data=await response.json();
+console.log(data);
+document.querySelector(".city").innerHTML=data.name;
+document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+"°c";
+document.querySelector("humidity").innerHTML=data.main.humidity+"%";
+document.querySelector(".wind").innerHTML=data.wind.speed+"km/hr";
+if(data.weather[0].main=="Clouds"){
+weatherIcon.src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180";
+}
+else if(data.weather[0].main=="Clear"){
+weatherIcon.src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180";
+}
+else if(data.weather[0].main=="Rain"){
+weatherIcon.src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180";
+}
+else if(data.weather[0].main=="Drizzle"){
+weatherIcon.src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180";
+}
+else if(data.weather[0].main=="Mist"){
+weatherIcon.src="https://tse2.mm.bing.net/th?id=OIP.S0UVTDlC2SKNjel2zYhaDgHaF7&pid=Api&P=0&h=180";
+}
+document.querySelector(".Weather").style.display="block";
+document.querySelector(".Weather").style.display="none";
+}
+
+
+
+
+}
+searchBtn.addEventListener("click",()=>{
+checkWeather(searchBox.Value);
+})
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
